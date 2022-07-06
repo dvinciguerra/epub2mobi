@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+
+require "epub2mobi"
+
+# getting epub filename from args
+epub_filename = ARGV.first
+
+path = File.dirname(epub_filename)
+mobi_filename = "#{path}/#{File.basename(epub_filename, ".*")}.mobi"
+
+Epub2mobi
+  .convert(from: epub_filename, to: mobi_filename)
