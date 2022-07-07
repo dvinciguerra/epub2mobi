@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'epub2mobi/version'
+
 # Epub to Mobi file type converter
 # It's based on calibre-ebook converter, so you need to install it
 module Epub2mobi
