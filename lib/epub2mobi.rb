@@ -8,7 +8,20 @@ module Epub2mobi
   CONVERT_APP = ENV.fetch('CONVERT_APP', 'ebook-convert')
   private_constant :CONVERT_APP
 
-  def self.convert(from:, to:)
-    system "#{CONVERT_APP} #{from} #{to}"
+  class ConverterMissingError < StandardError; end
+
+  class << self
+    def convert(from:, to:)
+      raise ConverterMissingError unless app_installed?
+
+      system "#{CONVERT_APP} #{from} #{to}"
+    end
+
+    private
+
+    def app_installed?
+      bin_path = `command -v #{CONVERT_APP}`.chomp
+      File.exist? bin_path
+    end
   end
 end
